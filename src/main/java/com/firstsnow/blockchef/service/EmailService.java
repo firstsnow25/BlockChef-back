@@ -19,6 +19,7 @@ public class EmailService {
     private final Map<String, ScheduledFuture<?>> ttlTasks = new ConcurrentHashMap<>();
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
+
     public EmailService(JavaMailSender mailSender) {
         this.mailSender = mailSender;
     }
@@ -29,8 +30,8 @@ public class EmailService {
 
         // TTL: 3분 후 자동 삭제
         ScheduledFuture<?> task = scheduler.schedule(() -> {
-            codeMap.remove(email);
-            ttlTasks.remove(email);
+            codeMap.remove(email);  // 인증 코드 삭제
+            ttlTasks.remove(email); // TTL 작업 자체도 삭제
         }, 3, TimeUnit.MINUTES);
 
         ttlTasks.put(email, task);
