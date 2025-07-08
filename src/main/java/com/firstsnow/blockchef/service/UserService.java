@@ -36,8 +36,7 @@ public class UserService {
         if (isUserExists(savedUser)) {
             response.setSuccess(true);
             response.setMessage("회원가입이 성공적으로 완료되었습니다.");
-        }
-        else {
+        } else {
             response.setSuccess(false);
             response.setMessage("회원가입이 실패했습니다.");
         }
@@ -59,7 +58,4 @@ public class UserService {
     public boolean checkEmailDuplicate(String email) {
         return userRepository.findByEmail(email).isPresent();
     }
-
-
-
 }

@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.Setter;
 
-// 요청 DTO
+// 요청 DTO : 클라이언트의 회원가입 요청 데이터(이름, 이메일, 비밀번호)를 담는 객체
 @Getter @Setter
 public class SignupRequest {
     @NotBlank(message = "이름은 필수 항목입니다.")
