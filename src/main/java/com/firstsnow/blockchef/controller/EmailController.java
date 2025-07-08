@@ -3,6 +3,7 @@ package com.firstsnow.blockchef.controller;
 import com.firstsnow.blockchef.dto.email.EmailRequest;
 import com.firstsnow.blockchef.dto.email.VerifyCodeRequest;
 import com.firstsnow.blockchef.service.EmailService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth/email")
+@Tag(name = "이메일", description = "이메일 코드 전송 및 확인")
 public class EmailController {
 
     private final EmailService emailService;

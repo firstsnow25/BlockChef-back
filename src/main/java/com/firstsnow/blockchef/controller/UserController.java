@@ -3,11 +3,13 @@ package com.firstsnow.blockchef.controller;
 import com.firstsnow.blockchef.dto.signup.SignupRequest;
 import com.firstsnow.blockchef.dto.signup.SignupResponse;
 import com.firstsnow.blockchef.service.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
+@Tag(name = "사용자", description = "사용자 회원가입")
 public class UserController {
 
     private final UserService userService;
