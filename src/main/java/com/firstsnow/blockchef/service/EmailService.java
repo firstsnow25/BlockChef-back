@@ -1,5 +1,6 @@
 package com.firstsnow.blockchef.service;
 
+
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,12 @@ import java.util.concurrent.*;
 public class EmailService {
 
     private final JavaMailSender mailSender;
+    private final UserService userService;
+
+    public EmailService(JavaMailSender mailSender, UserService userService) {
+        this.mailSender = mailSender;
+        this.userService = userService;
+    }
 
     // 이메일 → 인증번호 저장
     private final Map<String, String> codeMap = new ConcurrentHashMap<>();
@@ -20,11 +27,12 @@ public class EmailService {
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
 
-    public EmailService(JavaMailSender mailSender) {
-        this.mailSender = mailSender;
-    }
-
     public void sendVerificationCode(String email) {
+        // 이메일 중복 검사
+        if (userService.checkEmailDuplicate(email)) {
+            throw new RuntimeException("이미 가입된 이메일입니다.");
+        }
+
         String code = generateCode();
         codeMap.put(email, code);
 

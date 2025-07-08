@@ -1,8 +1,11 @@
 package com.firstsnow.blockchef.dto.signup;
 
-// 응답 DTO (선택)
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter @Setter
 public class SignupResponse {
-    private String id;
-    private String email;
-    // 생성자, getter
+
+    private boolean success; // 회원가입 성공 여부
+    private String message; // 결과 메시지 (성공/실패)
 }
