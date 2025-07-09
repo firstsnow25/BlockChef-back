@@ -1,6 +1,7 @@
 package com.firstsnow.blockchef.service;
 
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -9,15 +10,12 @@ import java.util.Map;
 import java.util.concurrent.*;
 
 @Service
+@RequiredArgsConstructor
 public class EmailService {
 
     private final JavaMailSender mailSender;
     private final UserService userService;
 
-    public EmailService(JavaMailSender mailSender, UserService userService) {
-        this.mailSender = mailSender;
-        this.userService = userService;
-    }
 
     // 이메일 → 인증번호 저장
     private final Map<String, String> codeMap = new ConcurrentHashMap<>();

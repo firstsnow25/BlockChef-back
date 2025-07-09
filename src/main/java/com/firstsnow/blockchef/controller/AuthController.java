@@ -3,6 +3,7 @@ package com.firstsnow.blockchef.controller;
 import com.firstsnow.blockchef.dto.email.EmailRequest;
 import com.firstsnow.blockchef.dto.email.VerifyCodeRequest;
 import com.firstsnow.blockchef.dto.login.LoginRequest;
+import com.firstsnow.blockchef.dto.passwordchange.PasswordChangeRequest;
 import com.firstsnow.blockchef.dto.signup.SignupRequest;
 import com.firstsnow.blockchef.dto.signup.SignupResponse;
 import com.firstsnow.blockchef.service.EmailService;
@@ -10,6 +11,7 @@ import com.firstsnow.blockchef.service.LoginService;
 import com.firstsnow.blockchef.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,6 +63,10 @@ public class AuthController {
         return ResponseEntity.ok(token); // 토큰을 응답 본문으로 전달
     }
 
-
-
+    // 비밀번호 재설정
+    @PostMapping("/reset-password")
+    public ResponseEntity<String> resetPassword(@RequestBody PasswordChangeRequest request) {
+        userService.resetPasswordByEmail(request);
+        return ResponseEntity.ok("비밀번호가 성공적으로 변경되었습니다.");
+    }
 }

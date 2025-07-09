@@ -5,23 +5,18 @@ import com.firstsnow.blockchef.config.JwtTokenProvider;
 import com.firstsnow.blockchef.domain.user.User;
 import com.firstsnow.blockchef.dto.login.LoginRequest;
 import com.firstsnow.blockchef.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class LoginService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
 
-    public LoginService(UserRepository userRepository,
-                        PasswordEncoder passwordEncoder,
-                        JwtTokenProvider jwtTokenProvider) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.jwtTokenProvider = jwtTokenProvider;
-    }
 
     public String login(LoginRequest request) {
         // db 에서 이메일로 사용자 조회
