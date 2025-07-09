@@ -1,6 +1,5 @@
 package com.firstsnow.blockchef.service;
 
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -16,14 +15,12 @@ public class EmailService {
     private final JavaMailSender mailSender;
     private final UserService userService;
 
-
     // 이메일 → 인증번호 저장
     private final Map<String, String> codeMap = new ConcurrentHashMap<>();
 
     // 이메일 → TTL 제거 스케줄 관리
     private final Map<String, ScheduledFuture<?>> ttlTasks = new ConcurrentHashMap<>();
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-
 
     public void sendVerificationCode(String email) {
         // 이메일 중복 검사
@@ -67,4 +64,3 @@ public class EmailService {
         }
     }
 }
-

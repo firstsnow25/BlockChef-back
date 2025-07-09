@@ -27,7 +27,6 @@ public class JwtTokenProvider {
         Date now = new Date();
         Date expiry = new Date(now.getTime() + tokenValidity);
 
-
         return Jwts.builder()
                 .setSubject(email) // 토큰의 주체 (예: 이메일)
                 .setIssuedAt(now)  // 발급 시간

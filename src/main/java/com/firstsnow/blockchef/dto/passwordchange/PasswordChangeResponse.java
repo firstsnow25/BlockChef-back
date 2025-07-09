@@ -1,6 +1,5 @@
 package com.firstsnow.blockchef.dto.passwordchange;
 
-
 import lombok.Getter;
 import lombok.Setter;
 

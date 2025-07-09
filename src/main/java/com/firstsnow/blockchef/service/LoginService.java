@@ -1,6 +1,5 @@
 package com.firstsnow.blockchef.service;
 
-
 import com.firstsnow.blockchef.config.JwtTokenProvider;
 import com.firstsnow.blockchef.domain.user.User;
 import com.firstsnow.blockchef.dto.login.LoginRequest;
@@ -32,8 +31,4 @@ public class LoginService {
         return jwtTokenProvider.createToken(user.getEmail());
     }
 
-
-
-
 }
-
