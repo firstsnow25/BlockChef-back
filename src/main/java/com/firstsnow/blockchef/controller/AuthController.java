@@ -8,7 +8,12 @@ import com.firstsnow.blockchef.dto.signup.SignupRequest;
 import com.firstsnow.blockchef.service.EmailService;
 import com.firstsnow.blockchef.service.LoginService;
 import com.firstsnow.blockchef.service.UserService;
+
 import lombok.RequiredArgsConstructor;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.HttpStatus;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
+@Tag(name = "인증 관련", description = "로그인, 이메일 인증, 회원가입, 비밀번호 재설정")
 public class AuthController {
 
     private final EmailService emailService;
