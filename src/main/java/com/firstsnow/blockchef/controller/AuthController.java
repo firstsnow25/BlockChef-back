@@ -5,32 +5,26 @@ import com.firstsnow.blockchef.dto.email.VerifyCodeRequest;
 import com.firstsnow.blockchef.dto.login.LoginRequest;
 import com.firstsnow.blockchef.dto.passwordchange.PasswordChangeRequest;
 import com.firstsnow.blockchef.dto.signup.SignupRequest;
-import com.firstsnow.blockchef.dto.signup.SignupResponse;
 import com.firstsnow.blockchef.service.EmailService;
 import com.firstsnow.blockchef.service.LoginService;
 import com.firstsnow.blockchef.service.UserService;
-import org.springframework.http.HttpStatus;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 @RestController
 @RequestMapping("/auth")
+@RequiredArgsConstructor
 public class AuthController {
 
-    private EmailService emailService;
-    private UserService userService;
-    private LoginService loginService;
+    private final EmailService emailService;
+    private final UserService userService;
+    private final LoginService loginService;
 
-    public AuthController(EmailService emailService, UserService userService, LoginService loginService) {
-        this.emailService = emailService;
-        this.userService = userService;
-        this.loginService = loginService;
-    }
+
 
     // 이메일 인증코드 전송
     @PostMapping("/email/send-code")
@@ -38,22 +32,19 @@ public class AuthController {
         emailService.sendVerificationCode(request.getEmail());
         return ResponseEntity.ok("인증번호가 전송되었습니다.");
     }
+
     // 이메일 인증코드 검증
     @PostMapping("/email/verify-code")
     public ResponseEntity<String> verifyCode(@RequestBody VerifyCodeRequest request) {
-        boolean result = emailService.verifyCode(request.getEmail(), request.getCode());
-        if (result) {
-            return ResponseEntity.ok("인증 성공");
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("인증 실패: 인증번호가 일치하지 않거나 만료되었습니다.");
-        }
+        emailService.verifyCodeOrThrow(request.getEmail(), request.getCode());
+        return ResponseEntity.ok("이메일 인증 성공");
     }
 
     // 회원가입
     @PostMapping("/signup")
-    public ResponseEntity<SignupResponse> signup(@RequestBody SignupRequest request) {
-        SignupResponse response = userService.signup(request);
-        return ResponseEntity.ok(response);
+    public ResponseEntity<String> signup(@RequestBody SignupRequest request) {
+        userService.signup(request);
+        return ResponseEntity.ok("회원가입이 성공적으로 완료되었습니다.");
     }
 
     // 로그인
