@@ -25,6 +25,6 @@ jobs:
             git pull origin master
             ./gradlew build
             pkill -f 'java -jar' || true
-            bash -c "nohup java -jar build/libs/Blockchef-back-0.0.1-SNAPSHOT.jar > log.txt 2>&1 &"
+            bash -c "nohup java -jar build/libs/project-back-0.0.1-SNAPSHOT.jar > log.txt 2>&1 &"
             echo "배포 완료"; exit 0
             
