@@ -22,7 +22,6 @@ public class JwtTokenProvider {
         this.tokenValidity = tokenValidity;
     }
 
-
     public String createToken(String email) {
         Date now = new Date();
         Date expiry = new Date(now.getTime() + tokenValidity);

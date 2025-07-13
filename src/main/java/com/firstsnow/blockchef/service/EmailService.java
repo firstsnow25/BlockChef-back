@@ -1,7 +1,5 @@
 package com.firstsnow.blockchef.service;
 
-
-
 import com.firstsnow.blockchef.exception.ApplicationError;
 import com.firstsnow.blockchef.exception.ApplicationException;
 import lombok.RequiredArgsConstructor;
