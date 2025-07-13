@@ -25,7 +25,7 @@ public class GlobalExceptionHandler {
                 .body(new ErrorResponse("UNKNOWN_ERROR", "예상치 못한 오류가 발생했습니다."));
     }
 
-//validation오류
+//validation 오류
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleValidationException(MethodArgumentNotValidException ex) {
         String errorMessage = ex.getBindingResult()
