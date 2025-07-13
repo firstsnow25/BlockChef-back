@@ -35,4 +35,3 @@ jobs:
             sudo systemctl restart blockchef
             echo "배포 완료" || true
           
-          
