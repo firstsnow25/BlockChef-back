@@ -9,6 +9,7 @@ import lombok.Setter;
 @Getter @Setter
 public class PasswordChangeRequest {
 
+    @Schema(description = "이메일", example = "example@email.com")
     private String email;
 
     @Schema(description = "비밀번호", example = "123456@A")
