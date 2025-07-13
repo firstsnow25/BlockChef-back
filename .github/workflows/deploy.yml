@@ -21,6 +21,7 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_KEY }}
           script: |
+            cp ~/deploy/application-secret.properties ~/BlockChef-back/src/main/resources/
             cd ~/BlockChef-back
             git pull origin master
             ./gradlew build -x test
