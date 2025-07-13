@@ -24,8 +24,15 @@ jobs:
             cd ~/BlockChef-back
             git pull origin master
             ./gradlew build -x test
-            pkill -f 'java -jar' || true
-            bash -c "nohup java -jar build/libs/project-0.0.1-SNAPSHOT.jar > log.txt 2>&1 &"
+            
+            # pkill -f 'java -jar' || true
+            # bash -c "nohup java -jar build/libs/project-0.0.1-SNAPSHOT.jar > log.txt 2>&1 &"
+            
+            cp build/libs/project-0.0.1-SNAPSHOT.jar ~/deploy/project.jar
+
+            # systemd 서비스 재시작
+            sudo systemctl daemon-reload
+            sudo systemctl restart blockchef
             echo "배포 완료" || true
           
   
