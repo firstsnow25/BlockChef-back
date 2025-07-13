@@ -12,7 +12,6 @@ import com.firstsnow.blockchef.service.UserService;
 import lombok.RequiredArgsConstructor;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.http.HttpStatus;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,8 +28,6 @@ public class AuthController {
     private final EmailService emailService;
     private final UserService userService;
     private final LoginService loginService;
-
-
 
     // 이메일 인증코드 전송
     @PostMapping("/email/send-code")

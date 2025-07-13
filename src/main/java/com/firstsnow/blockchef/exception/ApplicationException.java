@@ -2,7 +2,6 @@ package com.firstsnow.blockchef.exception;
 
 import org.springframework.http.HttpStatus;
 
-
 public class ApplicationException extends RuntimeException{
     private final ApplicationError error;
 

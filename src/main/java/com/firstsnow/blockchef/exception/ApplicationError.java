@@ -24,10 +24,6 @@ public enum ApplicationError {
     LOGIN_PASSWORD_MISMATCH(HttpStatus.UNAUTHORIZED, "비밀번호가 일치하지 않습니다."),
     USER_NOT_FOUND_BY_EMAIL(HttpStatus.NOT_FOUND, "해당 이메일로 가입된 사용자가 없습니다.");
 
-
-
-
-
     private final HttpStatus status;
     private final String message;
 }
