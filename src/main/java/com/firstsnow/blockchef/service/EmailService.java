@@ -26,10 +26,21 @@ public class EmailService {
     private final Map<String, ScheduledFuture<?>> ttlTasks = new ConcurrentHashMap<>();
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
-    public void sendVerificationCode(String email) {
+    public void sendSignupVerificationCode(String email) {
         // 이메일 중복 검사
         if (userService.checkEmailDuplicate(email)) {
             throw new ApplicationException(ApplicationError.DUPLICATE_EMAIL);
+        }
+
+        sendVerificationCode(email);
+    }
+
+
+
+    public void sendVerificationCode(String email) {
+
+        if (!userService.checkEmailDuplicate(email)) {
+            throw new ApplicationException(ApplicationError.USER_NOT_FOUND_BY_EMAIL);
         }
 
         String code = generateCode();

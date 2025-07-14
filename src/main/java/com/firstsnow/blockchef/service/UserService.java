@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -50,6 +51,7 @@ public class UserService {
 
         User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new ApplicationException(ApplicationError.USER_NOT_FOUND_BY_EMAIL));
+
 
         // 비밀번호 일치 여부 검증
         validatePasswordMatch(request.getPassword(), request.getPasswordCheck());

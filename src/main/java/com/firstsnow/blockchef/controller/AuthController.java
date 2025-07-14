@@ -34,8 +34,15 @@ public class AuthController {
 
 
 
-    // 이메일 인증코드 전송
-    @PostMapping("/email/send-code")
+    // 이메일 중복 검사 후 인증코드 전송
+    @PostMapping("/email/signup/send-code")
+    public ResponseEntity<String> sendCodeCheck(@RequestBody @Valid EmailRequest request) {
+        emailService.sendSignupVerificationCode(request.getEmail());
+        return ResponseEntity.ok("인증번호가 전송되었습니다.");
+    }
+
+    // 이메일 중복 검사 없이 인증코드 전송
+    @PostMapping("/email/reset-password/send-code")
     public ResponseEntity<String> sendCode(@RequestBody @Valid EmailRequest request) {
         emailService.sendVerificationCode(request.getEmail());
         return ResponseEntity.ok("인증번호가 전송되었습니다.");
