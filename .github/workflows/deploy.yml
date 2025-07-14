@@ -22,9 +22,7 @@ jobs:
           script: |
             cd ~/BlockChef-back
             git pull origin master
-
-            # 디렉토리 존재 보장
-            mkdir -p src/main/resources
+        
             echo "${{ secrets.APP_SECRET_PROPERTIES }}" > src/main/resources/application-secret.properties
 
             ./gradlew build -x test
@@ -33,4 +31,4 @@ jobs:
             sudo systemctl daemon-reload
             sudo systemctl restart blockchef
 
-            echo "✅ 배포 완료"
+            echo "배포 완료"
