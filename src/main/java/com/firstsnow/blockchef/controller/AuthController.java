@@ -8,14 +8,9 @@ import com.firstsnow.blockchef.dto.signup.SignupRequest;
 import com.firstsnow.blockchef.service.EmailService;
 import com.firstsnow.blockchef.service.LoginService;
 import com.firstsnow.blockchef.service.UserService;
-
 import lombok.RequiredArgsConstructor;
-
 import jakarta.validation.Valid;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.Value;
-import org.springframework.http.HttpStatus;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,19 +27,17 @@ public class AuthController {
     private final UserService userService;
     private final LoginService loginService;
 
-
-
-    // 이메일 중복 검사 후 인증코드 전송
+    // 회원가입용 이메일 인증코드 전송
     @PostMapping("/email/signup/send-code")
-    public ResponseEntity<String> sendCodeCheck(@RequestBody @Valid EmailRequest request) {
+    public ResponseEntity<String> sendSignupVerificationCode(@RequestBody @Valid EmailRequest request) {
         emailService.sendSignupVerificationCode(request.getEmail());
         return ResponseEntity.ok("인증번호가 전송되었습니다.");
     }
 
-    // 이메일 중복 검사 없이 인증코드 전송
+    // 비밀번호 재설정용 이메일 인증코드 전송
     @PostMapping("/email/reset-password/send-code")
-    public ResponseEntity<String> sendCode(@RequestBody @Valid EmailRequest request) {
-        emailService.sendVerificationCode(request.getEmail());
+    public ResponseEntity<String> sendResetPasswordVerificationCode(@RequestBody @Valid EmailRequest request) {
+        emailService.sendResetPasswordVerificationCode(request.getEmail());
         return ResponseEntity.ok("인증번호가 전송되었습니다.");
     }
 

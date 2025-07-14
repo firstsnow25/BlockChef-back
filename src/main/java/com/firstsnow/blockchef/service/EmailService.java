@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-
 import java.util.Map;
 import java.util.concurrent.*;
 
@@ -18,7 +17,6 @@ public class EmailService {
     private final UserService userService;
 
     private static final long VERIFICATION_CODE_TTL_MINUTES = 3;
-
     // 이메일 → 인증번호 저장
     private final Map<String, String> codeMap = new ConcurrentHashMap<>();
 
@@ -27,25 +25,24 @@ public class EmailService {
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     public void sendSignupVerificationCode(String email) {
-        // 이메일 중복 검사
+        // 이메일 중복 되면 에러
         if (userService.checkEmailDuplicate(email)) {
             throw new ApplicationException(ApplicationError.DUPLICATE_EMAIL);
         }
-
         sendVerificationCode(email);
     }
 
-
-
-    public void sendVerificationCode(String email) {
-
+    public void sendResetPasswordVerificationCode(String email) {
+        // 이메일 중복 아니면 에러
         if (!userService.checkEmailDuplicate(email)) {
             throw new ApplicationException(ApplicationError.USER_NOT_FOUND_BY_EMAIL);
         }
+        sendVerificationCode(email);
+    }
 
+    public void sendVerificationCode(String email) {
         String code = generateCode();
         codeMap.put(email, code);
-
         // TTL: 3분 후 자동 삭제
         ScheduledFuture<?> task = scheduler.schedule(() -> {
             codeMap.remove(email);  // 인증 코드 삭제
@@ -65,7 +62,6 @@ public class EmailService {
         if (!inputCode.equals(savedCode)) {
             throw new ApplicationException(ApplicationError.VERIFICATION_CODE_MISMATCH);
         }
-
         codeMap.remove(email);
         ScheduledFuture<?> task = ttlTasks.remove(email);
         if (task != null) {

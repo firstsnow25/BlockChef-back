@@ -52,7 +52,6 @@ public class UserService {
         User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new ApplicationException(ApplicationError.USER_NOT_FOUND_BY_EMAIL));
 
-
         // 비밀번호 일치 여부 검증
         validatePasswordMatch(request.getPassword(), request.getPasswordCheck());
 
