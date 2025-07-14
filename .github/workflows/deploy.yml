@@ -1,4 +1,4 @@
-name: Deploy to EC2
+name: Deploy BlockChef Backend
 
 on:
   push:
@@ -7,32 +7,28 @@ on:
 
 jobs:
   deploy:
-    name: Deploy Spring Boot app to EC2
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout source code
         uses: actions/checkout@v3
 
-      - name: Deploy to EC2 via SSH
+      - name: Deploy to EC2
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_KEY }}
           script: |
-            cp ~/deploy/application-secret.properties ~/BlockChef-back/src/main/resources/
             cd ~/BlockChef-back
             git pull origin master
+
+            echo "${{ secrets.APP_SECRET_PROPERTIES }}" > src/main/resources/application-secret.properties
+
             ./gradlew build -x test
-            
-            # pkill -f 'java -jar' || true
-            # bash -c "nohup java -jar build/libs/project-0.0.1-SNAPSHOT.jar > log.txt 2>&1 &"
-            
             cp build/libs/project-0.0.1-SNAPSHOT.jar ~/deploy/project.jar
 
-            # systemd 서비스 재시작
             sudo systemctl daemon-reload
             sudo systemctl restart blockchef
-            echo "배포 완료" || true
-          
+
+            echo "✅ 배포 완료"
