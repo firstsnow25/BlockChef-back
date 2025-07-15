@@ -22,6 +22,13 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())  // CSRF 보호 비활성화 (테스트/개발 환경용)
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html",
+                                "/swagger-resources/**",
+                                "/webjars/**"
+                        ).permitAll()
                         .requestMatchers("/signup/**", "/login", "/**", "/api/**").permitAll()  // 공개 접근 허용 URL
                         .anyRequest().authenticated()  // 나머지 요청은 인증 필요
                 );
