@@ -1,6 +1,7 @@
 package com.firstsnow.blockchef.exception;
 
 import io.swagger.v3.oas.annotations.Hidden;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -19,7 +20,19 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleGeneralException(Exception ex) {
+    public ResponseEntity<ErrorResponse> handleGeneralException(Exception ex, HttpServletRequest request) {
+
+        String path = request.getRequestURI();
+
+        // Swagger, 정적 리소스 요청은 Spring 기본 핸들러로 넘김
+        if (path.startsWith("/v3/api-docs") ||
+                path.startsWith("/swagger-ui") ||
+                path.startsWith("/swagger-resources") ||
+                path.startsWith("/webjars") ||
+                path.startsWith("/favicon.ico") ||
+                path.startsWith("/.well-known")) {
+            throw new RuntimeException(ex);
+        }
 
         ex.printStackTrace(); // 콘솔에 전체 스택 트레이스 출력 (개발용)
 
