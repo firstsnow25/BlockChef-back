@@ -1,6 +1,6 @@
 package com.firstsnow.blockchef.repository;
 
-import com.firstsnow.blockchef.domain.user.User;
+import com.firstsnow.blockchef.domain.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 import java.util.Optional;

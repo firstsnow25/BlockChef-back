@@ -67,7 +67,7 @@ public class AuthController {
     @Operation(summary = "로그인", description = "로그인을 한다.")
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody @Valid LoginRequest request) {
-        String token = loginService.login(request);
+        String token = loginService.login(request);  // JWT 생성
         return ResponseEntity.ok(token); // 토큰을 응답 본문으로 전달
     }
 
