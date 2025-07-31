@@ -1,4 +1,4 @@
-package com.firstsnow.blockchef.domain.user;
+package com.firstsnow.blockchef.domain;
 
 import lombok.Getter;
 import lombok.Setter;
